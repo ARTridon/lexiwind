@@ -8,15 +8,14 @@ export default defineConfig({
   plugins: [
     dts({
       insertTypesEntry: true,
-      include: ['src/Editor.tsx'],
+      include: ['src/Lexiwind.tsx'],
     }),
-    react(),
     tsConfigPaths(),
     react(),
   ],
   build: {
     lib: {
-      entry: path.resolve('src', 'Editor.tsx'),
+      entry: path.resolve('src', 'Lexiwind.tsx'),
       name: 'lexiwind',
       fileName: (format) => `lexiwind.${format}.js`,
     },
@@ -28,6 +27,11 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
         },
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });

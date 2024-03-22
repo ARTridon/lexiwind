@@ -21,6 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "lexiwind": ["src/Editor.tsx"]
     },
     "typeRoots": ["node_modules/@types", "src/Editor.d.ts"]

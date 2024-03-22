@@ -1,10 +1,11 @@
 {
   "name": "lexiwind",
   "description": "A React project with Vite and TypeScript",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "main": "./dist/lexiwind.umd.js",
   "module": "./dist/lexiwind.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/lexiwind.es.js",
@@ -49,6 +50,8 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.7.3",
+    "vite-tsconfig-paths": "^4.3.2"
   }
 }

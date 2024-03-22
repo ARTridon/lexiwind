@@ -18,7 +18,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "lexiwind": ["src/Editor.tsx"]
+    },
+    "typeRoots": ["node_modules/@types", "src/Editor.d.ts"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

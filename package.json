@@ -1,0 +1,57 @@
+{
+  "name": "lexiwind",
+  "description": "Lexiwind — modular editor ecosystem built on Lexical",
+  "version": "0.0.25",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARTridon/lexiwind.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ARTridon/lexiwind/issues"
+  },
+  "homepage": "https://github.com/ARTridon/lexiwind#readme",
+  "author": "ARTridon",
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo run build",
+    "packages:build": "turbo run build --filter='./packages/*'",
+    "packages:dev": "turbo run dev --filter='./packages/*'",
+    "typecheck": "turbo run typecheck",
+    "packages:typecheck": "turbo run typecheck --filter='./packages/*'",
+    "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
+    "test:smoke": "vitest run --config vitest.config.ts",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "turbo run build --filter='./packages/*' && changeset publish"
+  },
+  "packageManager": "pnpm@9.14.2",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@lexical/code": "0.44.0",
+    "@lexical/eslint-plugin": "0.44.0",
+    "@lexical/history": "0.44.0",
+    "@lexical/link": "0.44.0",
+    "@lexical/list": "0.44.0",
+    "@lexical/react": "0.44.0",
+    "@lexical/rich-text": "0.44.0",
+    "@lexical/selection": "0.44.0",
+    "@lexical/utils": "0.44.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^8.57.0",
+    "jsdom": "^29.1.1",
+    "lexical": "0.44.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "turbo": "^2.3.0",
+    "typescript": "^5.5.0",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^2.1.9"
+  }
+}

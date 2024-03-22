@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@lexiwind/core": ["packages/core/src/index.ts"],
+      "@lexiwind/react": ["packages/react/src/index.ts"],
+      "@lexiwind/history": ["packages/history/src/index.ts"],
+      "@lexiwind/table": ["packages/table/src/index.ts"],
+      "@lexiwind/code": ["packages/code/src/index.ts"],
+      "@lexiwind/slash-command": ["packages/slash-command/src/index.ts"],
+      "@lexiwind/toolbar": ["packages/toolbar/src/index.ts"],
+      "@lexiwind/mentions": ["packages/mentions/src/index.ts"],
+      "@lexiwind/collapsible": ["packages/collapsible/src/index.ts"],
+      "@lexiwind/embeds": ["packages/embeds/src/index.ts"],
+      "@lexiwind/themes": ["packages/themes/src/index.ts"],
+      "@lexiwind/floating-toolbar": ["packages/floating-toolbar/src/index.ts"]
+    }
+  }
+}

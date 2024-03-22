@@ -1,0 +1,51 @@
+{
+  "name": "create-lexiwind",
+  "version": "2.0.0",
+  "description": "Scaffold production-ready Lexiwind editors with zero config",
+  "type": "module",
+  "bin": {
+    "create-lexiwind": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --max-warnings=0"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.8.2",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.14.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARTridon/lexiwind.git"
+  },
+  "homepage": "https://github.com/ARTridon/lexiwind#readme",
+  "author": "ARTridon",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "lexiwind",
+    "lexical",
+    "editor",
+    "react",
+    "cli",
+    "scaffold"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

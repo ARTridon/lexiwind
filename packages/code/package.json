@@ -1,0 +1,73 @@
+{
+  "name": "@lexiwind/code",
+  "version": "1.0.0",
+  "description": "Code block plugin for Lexiwind",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --max-warnings=0"
+  },
+  "peerDependencies": {
+    "@lexical/code": ">=0.18.0",
+    "@lexical/react": ">=0.18.0",
+    "@lexical/utils": ">=0.18.0",
+    "lexical": ">=0.18.0",
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@lexical/code": "0.44.0",
+    "@lexical/react": "0.44.0",
+    "@lexical/utils": "0.44.0",
+    "@types/react": "^18.0.0",
+    "lexical": "0.44.0",
+    "react": "^18.2.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARTridon/lexiwind.git",
+    "directory": "packages/code"
+  },
+  "homepage": "https://github.com/ARTridon/lexiwind/tree/main/packages/code#readme",
+  "bugs": {
+    "url": "https://github.com/ARTridon/lexiwind/issues"
+  },
+  "author": "ARTridon",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "lexiwind",
+    "lexical",
+    "editor",
+    "react",
+    "code",
+    "syntax-highlighting"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -5,25 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "lexiwind-inline-flex lexiwind-items-center lexiwind-justify-center lexiwind-whitespace-nowrap lexiwind-rounded-md lexiwind-text-sm lexiwind-font-medium lexiwind-ring-offset-background lexiwind-transition-colors focus-visible:lexiwind-outline-none focus-visible:lexiwind-ring-2 focus-visible:lexiwind-ring-ring focus-visible:lexiwind-ring-offset-2 disabled:lexiwind-pointer-events-none disabled:lexiwind-opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default:
+          "lexiwind-bg-primary lexiwind-text-primary-foreground hover:lexiwind-bg-primary/90",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "lexiwind-bg-destructive lexiwind-text-destructive-foreground hover:lexiwind-bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "lexiwind-border lexiwind-border-input lexiwind-bg-background hover:lexiwind-bg-accent hover:lexiwind-text-accent-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "lexiwind-bg-secondary lexiwind-text-secondary-foreground hover:lexiwind-bg-secondary/80",
+        ghost: "lexiwind-hover:bg-accent hover:lexiwind-text-accent-foreground",
+        link: "lexiwind-text-primary lexiwind-underline-offset-4 hover:lexiwind-underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "lexiwind-h-10 lexiwind-px-4 lexiwind-py-2",
+        sm: "lexiwind-h-9 lexiwind-rounded-md lexiwind-px-3",
+        lg: "lexiwind-h-11 lexiwind-rounded-md lexiwind-px-8",
+        icon: "lexiwind-h-10 lexiwind-w-10",
       },
     },
     defaultVariants: {

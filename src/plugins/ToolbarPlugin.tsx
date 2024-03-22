@@ -82,10 +82,10 @@ export const ToolbarPlugin = () => {
 
   return (
     <div
-      className="flex items-start justify-start gap-3 rounded-t-lg border p-1"
+      className="lexiwind-flex lexiwind-items-start lexiwind-justify-start lexiwind-gap-3 lexiwind-rounded-t-lg lexiwind-border lexiwind-p-1"
       ref={toolbarRef}
     >
-      <div className="flex items-center justify-center gap-1">
+      <div className="lexiwind-flex lexiwind-items-center lexiwind-justify-center lexiwind-gap-1">
         <Button
           disabled={!canUndo}
           onClick={() => {
@@ -135,7 +135,7 @@ export const ToolbarPlugin = () => {
           </svg>
         </Button>
       </div>
-      <div className="flex items-center justify-center gap-1">
+      <div className="lexiwind-flex lexiwind-items-center lexiwind-justify-center lexiwind-gap-1">
         <Button
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
@@ -230,7 +230,7 @@ export const ToolbarPlugin = () => {
           </svg>
         </Button>
       </div>
-      <div className="flex items-center justify-center gap-1">
+      <div className="lexiwind-flex lexiwind-items-center lexiwind-justify-center lexiwind-gap-1">
         <Button
           onClick={() => {
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");

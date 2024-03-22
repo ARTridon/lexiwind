@@ -1,7 +1,7 @@
 {
   "name": "lexiwind",
   "description": "A React project with Vite and TypeScript",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "main": "./dist/lexiwind.umd.js",
   "module": "./dist/lexiwind.es.js",
@@ -11,7 +11,8 @@
       "import": "./dist/lexiwind.es.js",
       "require": "./dist/lexiwind.umd.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./dist/style.css": "./dist/style.css"
   },
   "files": [
     "dist",

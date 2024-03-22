@@ -19,6 +19,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 
 import { ToolbarPlugin } from "./plugins/ToolbarPlugin";
+import "./index.css";
 
 export type LexiwindPropsType = {
   value?: string;
@@ -33,15 +34,15 @@ const editorConfig: InitialConfigType = {
     throw error;
   },
   theme: {
-    ltr: "ltr",
-    rtl: "rtl",
-    code: "font-mono bg-gray-300  block py-2 px-2 md:px-8 md:py-2 md:pl-16 line-height-153 text-sm md:text-base md:leading-normal overflow-x-auto relative",
+    ltr: "lexiwind-ltr",
+    rtl: "lexiwind-rtl",
+    code: "lexiwind-font-mono lexiwind-bg-gray-300  lexiwind-block lexiwind-py-2 lexiwind-px-2 md:lexiwind-px-8 md:lexiwind-py-2 md:lexiwind-pl-16 lexiwind-line-height-[154px] lexiwind-text-sm md:lexiwind-text-base md:lexiwind-leading-normal lexiwind-overflow-x-auto lexiwind-relative",
     heading: {
-      h1: "text-3xl font-bold mb-4",
-      h2: "text-2xl font-bold mb-3",
-      h3: "text-xl font-bold mb-2",
-      h4: "text-lg font-bold mb-2",
-      h5: "text-base font-bold mb-1",
+      h1: "lexiwind-text-3xl lexiwind-font-bold lexiwind-mb-4",
+      h2: "lexiwind-text-2xl lexiwind-font-bold lexiwind-mb-3",
+      h3: "lexiwind-text-xl lexiwind-font-bold lexiwind-mb-2",
+      h4: "lexiwind-text-lg lexiwind-font-bold lexiwind-mb-2",
+      h5: "lexiwind-text-base lexiwind-font-bold lexiwind-mb-1",
     },
     image: "editor-image",
     link: "editor-link",
@@ -57,21 +58,21 @@ const editorConfig: InitialConfigType = {
     placeholder: "editor-placeholder",
     quote: "editor-quote",
     text: {
-      bold: "font-bold",
-      code: "font-mono bg-gray-200 px-1 rounded",
-      hashtag: "text-blue-500",
-      italic: "italic",
+      bold: "lexiwind-font-bold",
+      code: "lexiwind-font-mono lexiwind-bg-gray-200 lexiwind-px-1 lexiwind-rounded",
+      hashtag: "lexiwind-text-blue-500",
+      italic: "lexiwind-italic",
       overflowed: "editor-text-overflowed",
-      strikethrough: "line-through",
-      underline: "underline",
-      underlineStrikethrough: "underline line-through",
+      strikethrough: "lexiwind-line-through",
+      underline: "lexiwind-underline",
+      underlineStrikethrough: "lexiwind-underline lexiwind-line-through",
     },
   },
 };
 
 function Placeholder() {
   return (
-    <div className="pointer-events-none absolute left-3 top-4 text-ellipsis text-sm text-gray-500">
+    <div className="lexiwind-pointer-events-none lexiwind-absolute lexiwind-left-3 lexiwind-top-4 lexiwind-text-ellipsis lexiwind-text-sm lexiwind-text-gray-500">
       Enter some rich text...
     </div>
   );
@@ -82,9 +83,9 @@ export const Lexiwind = ({ value, onChange }: LexiwindPropsType) => {
 
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="max-w-600 leading-20 relative mx-auto my-20 overflow-hidden rounded-md p-2 text-left font-normal text-black">
+      <div className="lexiwind-leading-20 lexiwind-max-w-3xl lexiwind-relative lexiwind-mx-auto lexiwind-my-20 lexiwind-overflow-hidden lexiwind-rounded-md lexiwind-p-2 lexiwind-text-left lexiwind-font-normal lexiwind-text-black">
         <ToolbarPlugin />
-        <div className="relative border bg-white">
+        <div className="lexiwind-relative lexiwind-bg-white lexiwind-border">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
             placeholder={<Placeholder />}

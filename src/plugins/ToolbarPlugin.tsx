@@ -20,11 +20,52 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from "lexical";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+export type ToolbarContextType = {
+  canUndo: boolean;
+  canRedo: boolean;
+  isBold: boolean;
+  isUnderline: boolean;
+  isItalic: boolean;
+  isStrikethrough: boolean;
+  undoHandler: () => void;
+  redoHandler: () => void;
+  boldHandler: () => void;
+  italicHandler: () => void;
+  underlineHandler: () => void;
+  strikethroughHandler: () => void;
+};
+
+export const ToolbarContext = createContext<ToolbarContextType>({
+  canUndo: false,
+  canRedo: false,
+  isBold: false,
+  isUnderline: false,
+  isItalic: false,
+  isStrikethrough: false,
+  undoHandler: () => {},
+  redoHandler: () => {},
+  boldHandler: () => {},
+  italicHandler: () => {},
+  underlineHandler: () => {},
+  strikethroughHandler: () => {},
+});
 
 const LowPriority = 1;
 
-export const ToolbarPlugin = () => {
+type ToolbarPluginPropsType = {
+  children?: ReactNode;
+};
+
+export const ToolbarPlugin = ({ children }: ToolbarPluginPropsType) => {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
   const [canUndo, setCanUndo] = useState(false);
@@ -78,222 +119,247 @@ export const ToolbarPlugin = () => {
       ),
     );
   }, [editor, $updateToolbar]);
+
   return (
-    <div
-      className="lexiwind-flex lexiwind-flex-wrap lexiwind-gap-3 lexiwind-p-1"
-      ref={toolbarRef}
+    <ToolbarContext.Provider
+      value={{
+        canUndo,
+        canRedo,
+        isBold,
+        isUnderline,
+        isItalic,
+        isStrikethrough,
+        undoHandler: () => editor.dispatchCommand(UNDO_COMMAND, undefined),
+        redoHandler: () => editor.dispatchCommand(REDO_COMMAND, undefined),
+        boldHandler: () => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold"),
+        italicHandler: () =>
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic"),
+        underlineHandler: () =>
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline"),
+        strikethroughHandler: () =>
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough"),
+      }}
     >
-      <Button
-        disabled={!canUndo}
-        onClick={() => {
-          editor.dispatchCommand(UNDO_COMMAND, undefined);
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      {children ? (
+        children
+      ) : (
+        <div
+          className="lexiwind-flex lexiwind-flex-wrap lexiwind-gap-3 lexiwind-p-1"
+          ref={toolbarRef}
         >
-          <path d="M9 14 4 9l5-5" />
-          <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
-        </svg>
-      </Button>
-      <Button
-        disabled={!canRedo}
-        onClick={() => {
-          editor.dispatchCommand(REDO_COMMAND, undefined);
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="m15 14 5-5-5-5" />
-          <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
-        }}
-        variant={isBold ? "active" : "default"}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
-        }}
-        variant={isItalic ? "active" : "default"}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="19" x2="10" y1="4" y2="4" />
-          <line x1="14" x2="5" y1="20" y2="20" />
-          <line x1="15" x2="9" y1="4" y2="20" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
-        }}
-        variant={isUnderline ? "active" : "default"}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M6 4v6a6 6 0 0 0 12 0V4" />
-          <line x1="4" x2="20" y1="20" y2="20" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
-        }}
-        variant={isStrikethrough ? "active" : "default"}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M16 4H9a3 3 0 0 0-2.83 4" />
-          <path d="M14 12a4 4 0 0 1 0 8H6" />
-          <line x1="4" x2="20" y1="12" y2="12" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="21" x2="3" y1="6" y2="6" />
-          <line x1="15" x2="3" y1="12" y2="12" />
-          <line x1="17" x2="3" y1="18" y2="18" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="21" x2="3" y1="6" y2="6" />
-          <line x1="17" x2="7" y1="12" y2="12" />
-          <line x1="19" x2="5" y1="18" y2="18" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="21" x2="3" y1="6" y2="6" />
-          <line x1="21" x2="9" y1="12" y2="12" />
-          <line x1="21" x2="7" y1="18" y2="18" />
-        </svg>
-      </Button>
-      <Button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="3" x2="21" y1="6" y2="6" />
-          <line x1="3" x2="21" y1="12" y2="12" />
-          <line x1="3" x2="21" y1="18" y2="18" />
-        </svg>
-      </Button>
-    </div>
+          <Button
+            disabled={!canUndo}
+            onClick={() => {
+              editor.dispatchCommand(UNDO_COMMAND, undefined);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 14 4 9l5-5" />
+              <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
+            </svg>
+          </Button>
+          <Button
+            disabled={!canRedo}
+            onClick={() => {
+              editor.dispatchCommand(REDO_COMMAND, undefined);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m15 14 5-5-5-5" />
+              <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+            }}
+            variant={isBold ? "active" : "default"}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
+            }}
+            variant={isItalic ? "active" : "default"}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="19" x2="10" y1="4" y2="4" />
+              <line x1="14" x2="5" y1="20" y2="20" />
+              <line x1="15" x2="9" y1="4" y2="20" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
+            }}
+            variant={isUnderline ? "active" : "default"}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+              <line x1="4" x2="20" y1="20" y2="20" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
+            }}
+            variant={isStrikethrough ? "active" : "default"}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M16 4H9a3 3 0 0 0-2.83 4" />
+              <path d="M14 12a4 4 0 0 1 0 8H6" />
+              <line x1="4" x2="20" y1="12" y2="12" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="21" x2="3" y1="6" y2="6" />
+              <line x1="15" x2="3" y1="12" y2="12" />
+              <line x1="17" x2="3" y1="18" y2="18" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="21" x2="3" y1="6" y2="6" />
+              <line x1="17" x2="7" y1="12" y2="12" />
+              <line x1="19" x2="5" y1="18" y2="18" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="21" x2="3" y1="6" y2="6" />
+              <line x1="21" x2="9" y1="12" y2="12" />
+              <line x1="21" x2="7" y1="18" y2="18" />
+            </svg>
+          </Button>
+          <Button
+            onClick={() => {
+              editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="3" x2="21" y1="6" y2="6" />
+              <line x1="3" x2="21" y1="12" y2="12" />
+              <line x1="3" x2="21" y1="18" y2="18" />
+            </svg>
+          </Button>
+        </div>
+      )}
+    </ToolbarContext.Provider>
   );
 };

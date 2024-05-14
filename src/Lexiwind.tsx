@@ -11,31 +11,31 @@ import {
   InitialConfigType,
   LexicalComposer,
 } from "@lexical/react/LexicalComposer";
-import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { RichTextPlugin } from "@/plugins/RichTextPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { ToolbarPlugin } from "@/plugins/ToolbarPlugin";
 import { TreeViewPlugin } from "@/plugins/TreeViewPlugin";
 import { UpdateStatePlugin } from "@/plugins/UpdateStatePlugin";
 import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
 import { cn } from "@/utils/cn";
-import "./style.css";
 import { ReactNode, useState } from "react";
+import "./style.css";
 
 export type LexiwindPropsType = {
   defaultValue?: string;
   value?: string;
   onChange?: (editorState: string) => void;
-  placeholder?: ReactNode;
+  placeholder?: string;
   editorConfig?: InitialConfigType;
   classNames?: {
     container?: string;
+    contentEditable?: string;
     input?: string;
   };
   treeViewLog?: boolean;
   preview?: boolean;
+  children?: ReactNode;
 };
 
 export const Lexiwind = ({
@@ -47,6 +47,7 @@ export const Lexiwind = ({
   classNames,
   treeViewLog,
   preview,
+  children,
 }: LexiwindPropsType) => {
   const [config] = useState(
     () =>
@@ -92,46 +93,36 @@ export const Lexiwind = ({
 
   return (
     <LexicalComposer initialConfig={config}>
-      <div
-        className={cn(
-          classNames?.container ?? preview
-            ? "lexiwind-max-w-3xl lexiwind-bg-white lexiwind-p-4"
-            : "lexiwind-border-1 lexiwind-mx-auto lexiwind-max-w-3xl lexiwind-rounded-lg lexiwind-bg-white lexiwind-p-4 lexiwind-shadow-md",
-        )}
-      >
-        {!preview && <ToolbarPlugin />}
-        <div className="editor-inner">
-          <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" />}
-            placeholder={
-              placeholder ? <Placeholder>{placeholder}</Placeholder> : null
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
-          {(!!value || !!defaultValue) && (
-            <UpdateStatePlugin value={value ?? defaultValue} />
+      {children ? (
+        children
+      ) : (
+        <div
+          className={cn(
+            classNames?.container ?? preview
+              ? "lexiwind-max-w-3xl lexiwind-bg-white lexiwind-p-4"
+              : "lexiwind-border-1 lexiwind-mx-auto lexiwind-max-w-3xl lexiwind-rounded-lg lexiwind-bg-white lexiwind-p-4 lexiwind-shadow-md",
           )}
-          <HorizontalRulePlugin />
-          <OnChangePlugin
-            onChange={(_, editor) => {
-              const editorState = editor.getEditorState().toJSON();
-              const jsonString = JSON.stringify(editorState);
-              onChange && onChange(jsonString);
-            }}
-          />
-          {!preview && <AutoFocusPlugin />}
-          {!!treeViewLog && <TreeViewPlugin />}
+        >
+          {!preview && <ToolbarPlugin />}
+          <div className="editor-inner">
+            <RichTextPlugin classNames={classNames} placeholder={placeholder} />
+          </div>
         </div>
-      </div>
+      )}
+      <HorizontalRulePlugin />
+      <OnChangePlugin
+        onChange={(_, editor) => {
+          const editorState = editor.getEditorState().toJSON();
+          const jsonString = JSON.stringify(editorState);
+          onChange && onChange(jsonString);
+        }}
+      />
+      {!preview && <AutoFocusPlugin />}
+      {!!treeViewLog && <TreeViewPlugin />}
+      <HistoryPlugin />
+      {(!!value || !!defaultValue) && (
+        <UpdateStatePlugin value={value ?? defaultValue} />
+      )}
     </LexicalComposer>
   );
-};
-
-type PlaceholderPropsType = {
-  children: ReactNode;
-};
-
-const Placeholder = ({ children }: PlaceholderPropsType) => {
-  return <div className="editor-placeholder">{children}</div>;
 };

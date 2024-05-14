@@ -10,16 +10,16 @@ export default defineConfig({
     libInjectCss(),
     dts({
       insertTypesEntry: true,
-      include: ['src/Lexiwind.tsx'],
+      include: ['src/index.ts'],
     }),
     tsConfigPaths(),
     react(),
   ],
   build: {
     lib: {
-      entry: path.resolve('src', 'Lexiwind.tsx'),
-      name: 'lexiwind',
-      fileName: (format) => `lexiwind.${format}.js`,
+      entry: path.resolve('src', 'index.ts'),
+      name: 'index',
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],

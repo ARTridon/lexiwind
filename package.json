@@ -3,13 +3,13 @@
   "description": "A React project with Vite and TypeScript",
   "version": "0.0.20",
   "type": "module",
-  "main": "./dist/lexiwind.umd.js",
-  "module": "./dist/lexiwind.es.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/lexiwind.es.js",
-      "require": "./dist/lexiwind.umd.js",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
     }
   },
@@ -29,7 +29,12 @@
   "license": "MIT",
   "keywords": [
     "react",
-    "components"
+    "components",
+    "tailwindcss",
+    "vite",
+    "typescript",
+    "lexical",
+    "lexiwind"
   ],
   "scripts": {
     "dev": "vite",

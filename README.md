@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 import { Lexiwind } from "./Lexiwind";
 
 export const Preview = () => {
-  const [value, setValue] = useState("",);
+  const [value, setValue] = useState("");
 
   return (
     <>

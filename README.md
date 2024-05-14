@@ -4,7 +4,11 @@ This is a simple React application where I utilize Lexiwind, a custom Tailwind C
 
 ## Installation
 
-1. npm i lexiwind
+1. npm i lexiwind or pnpm i
+
+## Preview
+
+<img src='/public/preview.png' width='100%' >
 
 ## Technologies Used
 
@@ -12,7 +16,6 @@ This is a simple React application where I utilize Lexiwind, a custom Tailwind C
 - tailwind
 - shadcn/ui
 - lexical
-
 
 ## Credits
 

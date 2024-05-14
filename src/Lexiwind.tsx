@@ -31,6 +31,7 @@ export type LexiwindPropsType = {
   classNames?: {
     container?: string;
     contentEditable?: string;
+    inner?: string;
     input?: string;
   };
   treeViewLog?: boolean;
@@ -104,7 +105,11 @@ export const Lexiwind = ({
           )}
         >
           {!preview && <ToolbarPlugin />}
-          <div className="editor-inner">
+          <div
+            className={cn(
+              classNames?.inner ? classNames?.inner : "editor-inner",
+            )}
+          >
             <RichTextPlugin classNames={classNames} placeholder={placeholder} />
           </div>
         </div>

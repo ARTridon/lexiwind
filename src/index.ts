@@ -1,18 +1,5 @@
-import {
-  ToolbarPlugin,
-  ToolbarContext,
-  ToolbarContextType,
-} from "@/plugins/ToolbarPlugin";
-import { RichTextPlugin } from "@/plugins/RichTextPlugin";
-import { Lexiwind } from "@/Lexiwind";
+export * from "@/plugins/ToolbarPlugin";
+export * from "@/plugins/RichTextPlugin";
+export * from "@/Lexiwind";
 
-import { useToolbar } from "@/hooks/useToolbar";
-
-export {
-  Lexiwind,
-  useToolbar,
-  ToolbarPlugin,
-  ToolbarContext,
-  type ToolbarContextType,
-  RichTextPlugin,
-};
+export * from "@/hooks/useToolbar";

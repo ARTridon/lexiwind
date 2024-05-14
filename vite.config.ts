@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     libInjectCss(),
     dts({
-      outDir: 'dist',
+      rollupTypes: true,
     }),
     tsConfigPaths(),
     react(),
@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve('src', 'index.ts'),
-      name: 'index',
+      name: 'lexiwind',
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {

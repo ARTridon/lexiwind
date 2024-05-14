@@ -35,6 +35,7 @@ export type LexiwindPropsType = {
     input?: string;
   };
   treeViewLog?: boolean;
+  preview?: boolean;
 };
 
 export const Lexiwind = ({
@@ -45,12 +46,14 @@ export const Lexiwind = ({
   editorConfig,
   classNames,
   treeViewLog,
+  preview,
 }: LexiwindPropsType) => {
   const [config] = useState(
     () =>
       editorConfig ?? {
         namespace: "lexiwind-editor",
         onError: console.error,
+        editable: !preview,
         code: "editor-code",
         heading: {
           h1: "editor-heading-h1",
@@ -91,11 +94,12 @@ export const Lexiwind = ({
     <LexicalComposer initialConfig={config}>
       <div
         className={cn(
-          classNames?.container ??
-            "lexiwind-border-1 lexiwind-mx-auto lexiwind-max-w-3xl lexiwind-rounded-lg lexiwind-bg-white lexiwind-p-4 lexiwind-shadow-md",
+          classNames?.container ?? preview
+            ? "lexiwind-max-w-3xl lexiwind-bg-white lexiwind-p-4"
+            : "lexiwind-border-1 lexiwind-mx-auto lexiwind-max-w-3xl lexiwind-rounded-lg lexiwind-bg-white lexiwind-p-4 lexiwind-shadow-md",
         )}
       >
-        <ToolbarPlugin />
+        {!preview && <ToolbarPlugin />}
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
@@ -116,7 +120,7 @@ export const Lexiwind = ({
               onChange && onChange(jsonString);
             }}
           />
-          <AutoFocusPlugin />
+          {!preview && <AutoFocusPlugin />}
           {!!treeViewLog && <TreeViewPlugin />}
         </div>
       </div>

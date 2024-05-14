@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { Dev } from "./Dev.tsx";
+import { Preview } from "./Preview";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Dev />
+    <Preview />
   </React.StrictMode>,
 );

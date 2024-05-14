@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Lexiwind } from "./Lexiwind.tsx";
+import { Lexiwind } from "./Lexiwind";
 
-export const Dev = () => {
+export const Preview = () => {
   const [value, setValue] = useState(
     () => (localStorage.getItem("lexiwind-editor") as string) ?? "",
   );
@@ -14,5 +14,14 @@ export const Dev = () => {
     }
   }, [value]);
 
-  return <Lexiwind value={value} onChange={setValue} />;
+  return (
+    <>
+      <Lexiwind value={value} onChange={setValue} />
+      <Lexiwind
+        value={value}
+        // only show content
+        preview
+      />
+    </>
+  );
 };

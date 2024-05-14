@@ -1,7 +1,7 @@
 {
   "name": "lexiwind",
   "description": "A React project with Vite and TypeScript",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "type": "module",
   "main": "./dist/lexiwind.umd.js",
   "module": "./dist/lexiwind.es.js",

@@ -3,9 +3,11 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import react from '@vitejs/plugin-react';
+import { libInjectCss } from 'vite-plugin-lib-inject-css';
 
 export default defineConfig({
   plugins: [
+    libInjectCss(),
     dts({
       insertTypesEntry: true,
       include: ['src/Lexiwind.tsx'],

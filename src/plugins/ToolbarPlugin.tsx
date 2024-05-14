@@ -6,6 +6,7 @@
  *
  */
 "use client";
+import { Button } from "@/ui/Button";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import {
@@ -21,8 +22,6 @@ import {
 } from "lexical";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-
 const LowPriority = 1;
 
 export const ToolbarPlugin = () => {
@@ -35,7 +34,7 @@ export const ToolbarPlugin = () => {
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
 
-  const updateToolbar = useCallback(() => {
+  const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
       // Update text format
@@ -50,13 +49,13 @@ export const ToolbarPlugin = () => {
     return mergeRegister(
       editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
-          updateToolbar();
+          $updateToolbar();
         });
       }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
         () => {
-          updateToolbar();
+          $updateToolbar();
           return false;
         },
         LowPriority,
@@ -78,256 +77,223 @@ export const ToolbarPlugin = () => {
         LowPriority,
       ),
     );
-  }, [editor, updateToolbar]);
-
+  }, [editor, $updateToolbar]);
   return (
     <div
-      className="lexiwind-flex lexiwind-items-start lexiwind-justify-start lexiwind-gap-3 lexiwind-rounded-t-lg lexiwind-border lexiwind-p-1"
+      className="lexiwind-flex lexiwind-flex-wrap lexiwind-gap-3 lexiwind-p-1"
       ref={toolbarRef}
     >
-      <div className="lexiwind-flex lexiwind-items-center lexiwind-justify-center lexiwind-gap-1">
-        <Button
-          disabled={!canUndo}
-          onClick={() => {
-            editor.dispatchCommand(UNDO_COMMAND, undefined);
-          }}
-          size={"icon"}
-          variant={"ghost"}
+      <Button
+        disabled={!canUndo}
+        onClick={() => {
+          editor.dispatchCommand(UNDO_COMMAND, undefined);
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M9 14l-4 -4l4 -4" />
-            <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
-          </svg>
-        </Button>
-        <Button
-          disabled={!canRedo}
-          onClick={() => {
-            editor.dispatchCommand(REDO_COMMAND, undefined);
-          }}
-          size={"icon"}
-          variant={"ghost"}
+          <path d="M9 14 4 9l5-5" />
+          <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
+        </svg>
+      </Button>
+      <Button
+        disabled={!canRedo}
+        onClick={() => {
+          editor.dispatchCommand(REDO_COMMAND, undefined);
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M15 14l4 -4l-4 -4" />
-            <path d="M19 10h-11a4 4 0 1 0 0 8h1" />
-          </svg>
-        </Button>
-      </div>
-      <div className="lexiwind-flex lexiwind-items-center lexiwind-justify-center lexiwind-gap-1">
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
-          }}
-          size={"icon"}
-          variant={isBold ? "default" : "ghost"}
+          <path d="m15 14 5-5-5-5" />
+          <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
+        }}
+        variant={isBold ? "active" : "default"}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M7 5h6a3.5 3.5 0 0 1 0 7h-6z" />
-            <path d="M13 12h1a3.5 3.5 0 0 1 0 7h-7v-7" />
-          </svg>
-        </Button>
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
-          }}
-          size={"icon"}
-          variant={isItalic ? "default" : "ghost"}
+          <path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
+        }}
+        variant={isItalic ? "active" : "default"}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M11 5l6 0" />
-            <path d="M7 19l6 0" />
-            <path d="M14 5l-4 14" />
-          </svg>
-        </Button>
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
-          }}
-          size={"icon"}
-          variant={isUnderline ? "default" : "ghost"}
+          <line x1="19" x2="10" y1="4" y2="4" />
+          <line x1="14" x2="5" y1="20" y2="20" />
+          <line x1="15" x2="9" y1="4" y2="20" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
+        }}
+        variant={isUnderline ? "active" : "default"}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M7 5v5a5 5 0 0 0 10 0v-5" />
-            <path d="M5 19h14" />
-          </svg>
-        </Button>
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
-          }}
-          size={"icon"}
-          variant={isStrikethrough ? "default" : "ghost"}
+          <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+          <line x1="4" x2="20" y1="20" y2="20" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
+        }}
+        variant={isStrikethrough ? "active" : "default"}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M5 12l14 0" />
-            <path d="M16 6.5a4 2 0 0 0 -4 -1.5h-1a3.5 3.5 0 0 0 0 7h2a3.5 3.5 0 0 1 0 7h-1.5a4 2 0 0 1 -4 -1.5" />
-          </svg>
-        </Button>
-      </div>
-      <div className="lexiwind-flex lexiwind-items-center lexiwind-justify-center lexiwind-gap-1">
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
-          }}
-          size={"icon"}
-          variant={"ghost"}
+          <path d="M16 4H9a3 3 0 0 0-2.83 4" />
+          <path d="M14 12a4 4 0 0 1 0 8H6" />
+          <line x1="4" x2="20" y1="12" y2="12" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 6l16 0" />
-            <path d="M4 12l10 0" />
-            <path d="M4 18l14 0" />
-          </svg>
-        </Button>
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
-          }}
-          size={"icon"}
-          variant={"ghost"}
+          <line x1="21" x2="3" y1="6" y2="6" />
+          <line x1="15" x2="3" y1="12" y2="12" />
+          <line x1="17" x2="3" y1="18" y2="18" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 6l16 0" />
-            <path d="M8 12l8 0" />
-            <path d="M6 18l12 0" />
-          </svg>
-        </Button>
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
-          }}
-          size={"icon"}
-          variant={"ghost"}
+          <line x1="21" x2="3" y1="6" y2="6" />
+          <line x1="17" x2="7" y1="12" y2="12" />
+          <line x1="19" x2="5" y1="18" y2="18" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 6l16 0" />
-            <path d="M10 12l10 0" />
-            <path d="M6 18l14 0" />
-          </svg>
-        </Button>
-        <Button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
-          }}
-          size={"icon"}
-          variant={"ghost"}
+          <line x1="21" x2="3" y1="6" y2="6" />
+          <line x1="21" x2="9" y1="12" y2="12" />
+          <line x1="21" x2="7" y1="18" y2="18" />
+        </svg>
+      </Button>
+      <Button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 6l16 0" />
-            <path d="M4 12l16 0" />
-            <path d="M4 18l12 0" />
-          </svg>
-        </Button>
-      </div>
+          <line x1="3" x2="21" y1="6" y2="6" />
+          <line x1="3" x2="21" y1="12" y2="12" />
+          <line x1="3" x2="21" y1="18" y2="18" />
+        </svg>
+      </Button>
     </div>
   );
 };

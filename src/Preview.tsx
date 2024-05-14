@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Lexiwind, ToolbarPlugin, useToolbar, RichTextPlugin } from ".";
+import { Lexiwind, ToolbarPlugin, useToolbar, RichTextPlugin } from "lexiwind";
 import { Button } from "./ui/Button";
 
 export const Preview = () => {

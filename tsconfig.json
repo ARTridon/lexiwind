@@ -22,9 +22,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "lexiwind": ["src/Editor.tsx"]
+      "lexiwind": ["src/Editor.tsx"],
+      "third-lib": ["node_modules/third-lib"]
     },
-    "typeRoots": ["node_modules/@types", "src/Editor.d.ts"]
+    "typeRoots": ["node_modules/@types", "src/index.d.ts"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

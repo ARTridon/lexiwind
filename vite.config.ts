@@ -9,8 +9,7 @@ export default defineConfig({
   plugins: [
     libInjectCss(),
     dts({
-      insertTypesEntry: true,
-      include: ['src/index.ts'],
+      outDir: 'dist',
     }),
     tsConfigPaths(),
     react(),

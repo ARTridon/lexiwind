@@ -10,6 +10,8 @@ This is a simple React application where I utilize Lexiwind, a custom Tailwind C
 
 <img src='/public/preview.png' width='100%' >
 
+## Simple Use Example
+
 ```sh
 "use client";
 
@@ -17,15 +19,7 @@ import { useState, useEffect } from "react";
 import { Lexiwind } from "./Lexiwind";
 
 export const Preview = () => {
-  const [value, setValue] = useState(
-    () => (localStorage.getItem("lexiwind-editor") as string) ?? "",
-  );
-
-  useEffect(() => {
-    if (value) {
-      localStorage.setItem("lexiwind-editor", JSON.stringify(value));
-    }
-  }, [value]);
+  const [value, setValue] = useState("",);
 
   return (
     <>
@@ -39,7 +33,6 @@ export const Preview = () => {
   );
 };
 ```
-
 
 ## Custom Toolbar Type
 
@@ -60,7 +53,7 @@ type ToolbarContextType = {
 }
 ```
 
-## Custom Toolbar
+## Custom Toolbar Example
 
 ```sh
 "use client";
@@ -97,45 +90,16 @@ const CustomToolbar = () => {
   return (
     <div className="some-wrapper-toolbar-class">
       <Button disabled={!toolbar.canUndo} onClick={toolbar.undoHandler}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 14 4 9l5-5" />
-          <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
-        </svg>
+        ...
       </Button>
       <Button disabled={!toolbar.canRedo} onClick={toolbar.redoHandler}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="m15 14 5-5-5-5" />
-          <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13" />
-        </svg>
+        ...
       </Button>
       ...
     </div>
   );
 };
 ```
-
-
-
 
 ## Technologies Used
 

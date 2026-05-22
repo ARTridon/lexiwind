@@ -1,6 +1,6 @@
 {
   "name": "create-lexiwind",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Scaffold production-ready Lexiwind editors with zero config",
   "type": "module",
   "bin": {

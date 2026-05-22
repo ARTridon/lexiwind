@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/react",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "React integration for Lexiwind — LexiwindEditor component and core hooks",
   "type": "module",
   "sideEffects": false,

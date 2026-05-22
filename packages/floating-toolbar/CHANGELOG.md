@@ -1,5 +1,17 @@
 # @lexiwind/floating-toolbar
 
+## 4.0.0
+
+### Minor Changes
+
+- b5b7be0: docs: add detailed README files to all 15 packages
+
+### Patch Changes
+
+- Updated dependencies [b5b7be0]
+  - @lexiwind/toolbar@3.1.0
+  - @lexiwind/core@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/themes",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Pre-built Tailwind CSS themes for Lexiwind",
   "type": "module",
   "sideEffects": false,

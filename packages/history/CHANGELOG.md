@@ -1,5 +1,11 @@
 # @lexiwind/history
 
+## 3.1.0
+
+### Minor Changes
+
+- b5b7be0: docs: add detailed README files to all 15 packages
+
 ## 3.0.0
 
 ### Major Changes

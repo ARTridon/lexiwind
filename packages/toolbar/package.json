@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/toolbar",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Headless toolbar state hooks and provider for Lexiwind",
   "type": "module",
   "sideEffects": false,

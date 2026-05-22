@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/embeds",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Unified URL embed plugin for Lexiwind (YouTube, Twitter, Figma, custom)",
   "type": "module",
   "sideEffects": false,

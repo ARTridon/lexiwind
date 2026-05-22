@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/mentions",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Configurable @mentions plugin for Lexiwind",
   "type": "module",
   "sideEffects": false,

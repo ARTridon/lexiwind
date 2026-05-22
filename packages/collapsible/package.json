@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/collapsible",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Collapsible block plugin for Lexiwind — Tailwind-native, no CSS file required",
   "type": "module",
   "sideEffects": false,

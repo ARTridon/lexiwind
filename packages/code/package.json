@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/code",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Code block plugin for Lexiwind",
   "type": "module",
   "sideEffects": false,

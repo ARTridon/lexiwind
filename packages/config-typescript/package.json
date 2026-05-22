@@ -1,6 +1,6 @@
 {
   "name": "@lexiwind/config-typescript",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Shared TypeScript configuration for Lexiwind packages",
   "type": "module",
   "sideEffects": false,
